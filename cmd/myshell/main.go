@@ -44,12 +44,11 @@ func main() {
 
 		case "type":
 			env := os.Getenv("PATH")
-			fmt.Println(env)
 			path := strings.Split(env, ":")
 			for _, p := range path {
 				if _, err := os.Stat(p + "/" + commands[1]); err == nil {
-					fmt.Println(commands[1] + " is a shell builtin")
-					break
+					fmt.Println(commands[1] + " is " + p + "/" + commands[1])
+					return
 				}
 			}
 			fmt.Println(commands[1] + ": not found")
