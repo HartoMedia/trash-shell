@@ -11,7 +11,7 @@ import (
 var builtins = []string{"exit", "echo", "type", "pwd", "cd"}
 
 func main() {
-	for i := 0; i < 3; i = i {
+	for {
 		fmt.Fprint(os.Stdout, "$ ")
 
 		// Wait for user input
