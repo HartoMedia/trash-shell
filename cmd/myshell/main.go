@@ -35,10 +35,11 @@ func main() {
 			}
 
 		case "echo":
-			for i := 1; i < len(commands); i++ {
+			for i := 1; i < len(commands)+1; i++ {
 				fmt.Print(commands[i] + " ")
 			}
-			fmt.Println("")
+			i++
+			fmt.Println(commands[i])
 		default:
 			fmt.Println(command[:len(command)-1] + ": command not found")
 		}
