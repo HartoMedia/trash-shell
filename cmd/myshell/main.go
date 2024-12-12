@@ -43,12 +43,22 @@ func main() {
 			fmt.Println(commands[i])
 
 		case "type":
-			switch commands[1] {
-			case "echo", "exit", "type":
-				fmt.Println(commands[1] + " is a shell builtin")
-			default:
-				fmt.Println(commands[1] + ": not found")
+			env := os.Getenv("PATH")
+			fmt.Println(env)
+			path := strings.Split(env, ":")
+			for _, p := range path {
+				if _, err := os.Stat(p + "/" + commands[1]); err == nil {
+					fmt.Println(commands[1] + " is a shell builtin")
+					break
+				}
 			}
+			fmt.Println(commands[1] + ": not found")
+			//switch commands[1] {
+			//case "echo", "exit", "type":
+			//	fmt.Println(commands[1] + " is a shell builtin")
+			//default:
+			//	fmt.Println(commands[1] + ": not found")
+			//}
 
 		default:
 			fmt.Println(command[:len(command)-1] + ": command not found")
