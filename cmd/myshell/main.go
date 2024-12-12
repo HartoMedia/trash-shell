@@ -35,7 +35,7 @@ func main() {
 			}
 
 		case "echo":
-			for i := 1; i < len(commands)+1; i++ {
+			for i := 1; i < len(commands)-1; i++ {
 				fmt.Print(commands[i] + " ")
 			}
 			i++
