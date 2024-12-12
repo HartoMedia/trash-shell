@@ -40,7 +40,6 @@ func main() {
 				fmt.Print(commands[i] + " ")
 				i++
 			}
-			i++
 			fmt.Println(commands[i])
 		default:
 			fmt.Println(command[:len(command)-1] + ": command not found")
