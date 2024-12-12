@@ -48,7 +48,7 @@ func main() {
 			for _, p := range path {
 				if _, err := os.Stat(p + "/" + commands[1]); err == nil {
 					fmt.Println(commands[1] + " is " + p + "/" + commands[1])
-					return
+					break
 				}
 			}
 			fmt.Println(commands[1] + ": not found")
