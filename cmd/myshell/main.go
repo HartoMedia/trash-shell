@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var builtins = []string{"exit", "echo", "type", "pwd"}
+var builtins = []string{"exit", "echo", "type", "pwd", "cd"}
 
 func main() {
 	for i := 0; i < 3; i = i {
@@ -52,6 +52,8 @@ func main() {
 			}
 			fmt.Println(dir)
 
+		case "cd":
+			os.Chdir(commands[1])
 		default:
 			command := exec.Command(commands[0], commands[1:]...)
 			command.Stderr = os.Stderr
