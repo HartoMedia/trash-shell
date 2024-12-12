@@ -7,8 +7,7 @@ import (
 	"strings"
 )
 
-// Ensures gofmt doesn't remove the "fmt" import in stage 1 (feel free to remove this!)
-var _ = fmt.Fprint
+var builtins = []string{"exit", "echo", "type"}
 
 func main() {
 	for i := 0; i < 3; i = i {
@@ -52,13 +51,24 @@ func main() {
 }
 
 func builtin_type(commands []string) {
-	env := os.Getenv("PATH")
-	path := strings.Split(env, ":")
-	for _, p := range path {
-		if _, err := os.Stat(p + "/" + commands[1]); err == nil {
-			fmt.Println(commands[1] + " is " + p + "/" + commands[1])
-			return
+	if len(commands) < 2 {
+		return
+	} else {
+		for _, b := range builtins {
+			if b == commands[1] {
+				fmt.Println(commands[1] + " is a shell builtin")
+				return
+			}
+
 		}
+		env := os.Getenv("PATH")
+		path := strings.Split(env, ":")
+		for _, p := range path {
+			if _, err := os.Stat(p + "/" + commands[1]); err == nil {
+				fmt.Println(commands[1] + " is " + p + "/" + commands[1])
+				return
+			}
+		}
+		fmt.Println(commands[1] + ": not found")
 	}
-	fmt.Println(commands[1] + ": not found")
 }
