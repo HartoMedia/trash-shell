@@ -25,7 +25,6 @@ func main() {
 		commands := strings.Split(message, " ")
 
 		switch commands[0] {
-
 		case "exit":
 			switch commands[1] {
 			case "0":
