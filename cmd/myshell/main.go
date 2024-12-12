@@ -56,6 +56,7 @@ func main() {
 			err := os.Chdir(commands[1])
 			if err != nil {
 				fmt.Printf("cd: %s: No such file or directory", commands[1])
+				fmt.Println("")
 			}
 		default:
 			command := exec.Command(commands[0], commands[1:]...)
