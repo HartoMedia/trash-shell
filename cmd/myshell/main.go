@@ -21,10 +21,27 @@ func main() {
 			os.Exit(1)
 		}
 
-		message := strings.TrimSpace(command)
-		commands := strings.Split(message, " ")
+		//message := strings.TrimSpace(command)
+		//commands := strings.Split(message, " ")
+
+		s := strings.Trim(command, "\r\n")
+		var commands []string
+		for {
+			start := strings.Index(s, "'")
+			if start == -1 {
+				commands = append(commands, strings.Fields(s)...)
+				break
+			}
+			commands = append(commands, strings.Fields(s[:start])...)
+			s = s[start+1:]
+			end := strings.Index(s, "'")
+			token := s[:end]
+			commands = append(commands, token)
+			s = s[end+1:]
+		}
 
 		switch commands[0] {
+
 		case "exit":
 			switch commands[1] {
 			case "0":
@@ -34,23 +51,12 @@ func main() {
 			}
 
 		case "echo":
-			if strings.Contains(commands[1], "'") {
-				fmt.Print(strings.TrimLeft(commands[1], "'"))
-				fmt.Print(" ")
-				for i := 1; i < len(commands); i++ {
-					if !strings.Contains(commands[i], "'") {
-						fmt.Print(commands[i] + " ")
-					}
-				}
-				fmt.Println(strings.TrimRight(commands[len(commands)-1], "'"))
-			} else {
-				for i := 1; i < len(commands); i++ {
-					if commands[i] != " " {
-						fmt.Print(commands[i] + " ")
-					}
-				}
-				fmt.Println("")
+			i := 1
+			for i < len(commands)-1 {
+				fmt.Print(commands[i] + " ")
+				i++
 			}
+			fmt.Println(commands[i])
 
 		case "type":
 			builtin_type(commands)
