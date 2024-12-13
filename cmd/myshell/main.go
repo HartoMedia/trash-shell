@@ -27,7 +27,7 @@ func main() {
 		s := strings.Trim(command, "\r\n")
 		var commands []string
 		for {
-			start := strings.Index(s, "'\"")
+			start := strings.IndexAny(s, "'\"")
 			if start == -1 {
 				commands = append(commands, strings.Fields(s)...)
 				break
