@@ -34,13 +34,18 @@ func main() {
 			}
 
 		case "echo":
-			i := 1
-			for i < len(commands)-1 {
-				fmt.Print(commands[i] + " ")
-				i++
+			if strings.Contains(commands[1], "'") {
+				fmt.Print(strings.TrimLeft(commands[1], "'"))
+				fmt.Print(" ")
+				for i := 1; i < len(commands); i++ {
+					if !strings.Contains(commands[i], "'") {
+						fmt.Print(commands[i] + " ")
+					}
+				}
+				fmt.Println(strings.TrimRight(commands[len(commands)-1], "'"))
+			} else {
+				fmt.Println(strings.Join(commands[1:], " "))
 			}
-			fmt.Println(commands[i])
-
 		case "type":
 			builtin_type(commands)
 
