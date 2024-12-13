@@ -27,14 +27,15 @@ func main() {
 		s := strings.Trim(command, "\r\n")
 		var commands []string
 		for {
-			start := strings.Index(s, "'")
+			start := strings.Index(s, "'\"")
 			if start == -1 {
 				commands = append(commands, strings.Fields(s)...)
 				break
 			}
+			ch := s[start]
 			commands = append(commands, strings.Fields(s[:start])...)
 			s = s[start+1:]
-			end := strings.Index(s, "'")
+			end := strings.IndexByte(s, ch)
 			token := s[:end]
 			commands = append(commands, token)
 			s = s[end+1:]
