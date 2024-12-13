@@ -34,10 +34,6 @@ func main() {
 			}
 
 		case "echo":
-			for i := 0; i < len(commands); i++ {
-				fmt.Println(commands[i])
-			}
-			fmt.Println("---------------------------------")
 			if strings.Contains(commands[1], "'") {
 				fmt.Print(strings.TrimLeft(commands[1], "'"))
 				fmt.Print(" ")
