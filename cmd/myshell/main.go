@@ -41,14 +41,12 @@ func main() {
 				args[i] = strings.Trim(args[i], "'")
 			}
 		} else {
-			if strings.Contains(argstr, "\\") {
-				re := regexp.MustCompile(`[^\\]+`)
-				args = re.Split(argstr, -1)
-				for i := range args {
-					args[i] = strings.ReplaceAll(args[i], "\\", "")
-				}
-			} else {
-				args = strings.Fields(argstr)
+			// Handle backslashes followed by spaces
+			re := regexp.MustCompile(`\\ `)
+			argstr = re.ReplaceAllString(argstr, "\x00")
+			args = strings.Fields(argstr)
+			for i := range args {
+				args[i] = strings.ReplaceAll(args[i], "\x00", " ")
 			}
 		}
 
@@ -108,7 +106,6 @@ func builtin_type(commands []string) {
 			fmt.Println(commands[0] + " is a shell builtin")
 			return
 		}
-
 	}
 	env := os.Getenv("PATH")
 	path := strings.Split(env, ":")
