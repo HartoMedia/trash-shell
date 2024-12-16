@@ -44,7 +44,12 @@ func main() {
 			// Handle backslashes as escape characters
 			re := regexp.MustCompile(`\\.`)
 			argstr = re.ReplaceAllStringFunc(argstr, func(m string) string {
-				return string(m[1])
+				switch m[1] {
+				case 'n':
+					return "\n"
+				default:
+					return string(m[1])
+				}
 			})
 			args = strings.Fields(argstr)
 		}
