@@ -26,47 +26,30 @@ func main() {
 
 		s = strings.Trim(s, "\r\n")
 
-		var args []string
-		command, argstr, _ := strings.Cut(s, " ")
-		if strings.Contains(s, "\"") {
-			re := regexp.MustCompile("\"(.*?)\"")
-			args = re.FindAllString(s, -1)
-			for i := range args {
-				args[i] = strings.Trim(args[i], "\"")
-			}
-		} else if strings.Contains(s, "'") {
-			re := regexp.MustCompile("'(.*?)'")
-			args = re.FindAllString(s, -1)
-			for i := range args {
-				args[i] = strings.Trim(args[i], "'")
-			}
-		} else {
-			// Handle backslashes as escape characters
-			re := regexp.MustCompile(`\\.`)
-			argstr = re.ReplaceAllStringFunc(argstr, func(m string) string {
-				switch m[1] {
-				case 'n':
-					return "\n"
-				default:
-					return string(m[1])
-				}
-			})
-			args = strings.Fields(argstr)
+		if len(s) == 0 {
+			continue
 		}
+
+		// Parse command and arguments
+		command, args := parseCommand(s)
 
 		switch command {
 		case "exit":
-			n, err := strconv.Atoi(args[0])
-			if err != nil {
-				log.Fatal(err)
+			if len(args) > 0 {
+				n, err := strconv.Atoi(args[0])
+				if err != nil {
+					log.Fatal(err)
+				}
+				os.Exit(n)
+			} else {
+				os.Exit(0)
 			}
-			os.Exit(n)
 
 		case "echo":
 			fmt.Println(strings.Join(args, " "))
 
 		case "type":
-			builtin_type(args)
+			builtinType(args)
 
 		case "pwd":
 			dir, err := os.Getwd()
@@ -76,10 +59,13 @@ func main() {
 			fmt.Println(dir)
 
 		case "cd":
+			if len(args) == 0 {
+				fmt.Println("cd: missing argument")
+				break
+			}
 			if args[0] == "~" {
 				os.Chdir(os.Getenv("HOME"))
-			}
-			if err := os.Chdir(args[0]); os.IsNotExist(err) {
+			} else if err := os.Chdir(args[0]); os.IsNotExist(err) {
 				fmt.Println(command + ": " + args[0] + ": No such file or directory")
 				break
 			} else if err != nil {
@@ -92,19 +78,52 @@ func main() {
 				fmt.Printf("%s: command not found\n", command)
 				break
 			}
-			command := exec.Command(command, args...)
-			command.Stdin = os.Stdin
-			command.Stderr = os.Stderr
-			command.Stdout = os.Stdout
-			err := command.Run()
-			if err != nil {
-				fmt.Printf("%s: command not found\n", args[0])
+			cmd := exec.Command(command, args...)
+			cmd.Stdin = os.Stdin
+			cmd.Stderr = os.Stderr
+			cmd.Stdout = os.Stdout
+			if err := cmd.Run(); err != nil {
+				fmt.Printf("%s: error executing command\n", command)
 			}
 		}
 	}
 }
 
-func builtin_type(commands []string) {
+func parseCommand(input string) (string, []string) {
+	// Handle quoted strings and escaped characters
+	re := regexp.MustCompile(`\\.|"(.*?)"|'(.*?)'|\S+`)
+	matches := re.FindAllString(input, -1)
+
+	var args []string
+	for _, match := range matches {
+		if strings.HasPrefix(match, "\"") && strings.HasSuffix(match, "\"") {
+			args = append(args, strings.Trim(match, "\""))
+		} else if strings.HasPrefix(match, "'") && strings.HasSuffix(match, "'") {
+			args = append(args, strings.Trim(match, "'"))
+		} else {
+			args = append(args, unescapeBackslashes(match))
+		}
+	}
+
+	if len(args) == 0 {
+		return "", nil
+	}
+
+	command := args[0]
+	args = args[1:]
+	return command, args
+}
+
+func unescapeBackslashes(input string) string {
+	// Replace escaped characters (e.g., \\ -> \, \" -> ", etc.)
+	return strings.ReplaceAll(input, "\\", "\"")
+}
+
+func builtinType(commands []string) {
+	if len(commands) == 0 {
+		fmt.Println("type: missing argument")
+		return
+	}
 	for _, b := range builtins {
 		if b == commands[0] {
 			fmt.Println(commands[0] + " is a shell builtin")
