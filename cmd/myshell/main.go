@@ -16,16 +16,13 @@ func main() {
 		fmt.Fprint(os.Stdout, "$ ")
 
 		// Wait for user input
-		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
+		s, err := bufio.NewReader(os.Stdin).ReadString('\n')
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "error reading input:", err)
 			os.Exit(1)
 		}
 
-		//message := strings.TrimSpace(command)
-		//commands := strings.Split(message, " ")
-
-		s := strings.Trim(command, "\r\n")
+		s = strings.Trim(s, "\r\n")
 
 		var commands []string
 		command, argstr, _ := strings.Cut(s, " ")
@@ -69,7 +66,7 @@ func main() {
 		//	s = s[end+1:]
 		//}
 
-		switch commands[0] {
+		switch command {
 
 		case "exit":
 			switch commands[1] {
@@ -80,12 +77,9 @@ func main() {
 			}
 
 		case "echo":
-			i := 1
-			for i < len(commands)-1 {
-				fmt.Print(commands[i] + " ")
-				i++
+			for i := 0; i < len(commands); i++ {
+				fmt.Println(commands[i])
 			}
-			fmt.Println(commands[i])
 
 		case "type":
 			builtin_type(commands)
