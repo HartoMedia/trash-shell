@@ -116,7 +116,7 @@ func parseCommand(input string) (string, []string) {
 
 func unescapeBackslashes(input string) string {
 	// Replace escaped characters (e.g., \\ -> \, \" -> ", etc.)
-	return strings.ReplaceAll(input, "\\", "\"")
+	return strings.ReplaceAll(input, "\\", "")
 }
 
 func builtinType(commands []string) {
