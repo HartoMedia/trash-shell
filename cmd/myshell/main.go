@@ -41,13 +41,12 @@ func main() {
 				args[i] = strings.Trim(args[i], "'")
 			}
 		} else {
-			// Handle backslashes followed by spaces
-			re := regexp.MustCompile(`\\ `)
-			argstr = re.ReplaceAllString(argstr, "\x00")
+			// Handle backslashes as escape characters
+			re := regexp.MustCompile(`\\.`)
+			argstr = re.ReplaceAllStringFunc(argstr, func(m string) string {
+				return string(m[1])
+			})
 			args = strings.Fields(argstr)
-			for i := range args {
-				args[i] = strings.ReplaceAll(args[i], "\x00", " ")
-			}
 		}
 
 		switch command {
