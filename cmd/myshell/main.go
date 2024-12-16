@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"regexp"
 	"strings"
 )
 
@@ -25,21 +26,48 @@ func main() {
 		//commands := strings.Split(message, " ")
 
 		s := strings.Trim(command, "\r\n")
+
 		var commands []string
-		for {
-			start := strings.IndexAny(s, "'\"")
-			if start == -1 {
-				commands = append(commands, strings.Fields(s)...)
-				break
+		command, argstr, _ := strings.Cut(s, " ")
+		if strings.Contains(s, "\"") {
+			re := regexp.MustCompile("\"(.*?)\"")
+			commands = re.FindAllString(s, -1)
+			for i := range commands {
+				commands[i] = strings.Trim(commands[i], "\"")
 			}
-			ch := s[start]
-			commands = append(commands, strings.Fields(s[:start])...)
-			s = s[start+1:]
-			end := strings.IndexByte(s, ch)
-			token := s[:end]
-			commands = append(commands, token)
-			s = s[end+1:]
+		} else if strings.Contains(s, "'") {
+			re := regexp.MustCompile("'(.*?)'")
+			commands = re.FindAllString(s, -1)
+			for i := range commands {
+				commands[i] = strings.Trim(commands[i], "'")
+			}
+		} else {
+			if strings.Contains(argstr, "\\") {
+				re := regexp.MustCompile(`[^\\]+`)
+				commands = re.Split(argstr, -1)
+				for i := range commands {
+					commands[i] = strings.ReplaceAll(commands[i], "\\", "")
+				}
+			} else {
+				commands = strings.Fields(argstr)
+			}
+
 		}
+
+		//for {
+		//	start := strings.IndexAny(s, "'\"")
+		//	if start == -1 {
+		//		commands = append(commands, strings.Fields(s)...)
+		//		break
+		//	}
+		//	ch := s[start]
+		//	commands = append(commands, strings.Fields(s[:start])...)
+		//	s = s[start+1:]
+		//	end := strings.IndexByte(s, ch)
+		//	token := s[:end]
+		//	commands = append(commands, token)
+		//	s = s[end+1:]
+		//}
 
 		switch commands[0] {
 
