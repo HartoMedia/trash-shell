@@ -1,3 +1,5 @@
-main.exe
 .gitattributes
 .idea
+target
+*.exe
+shell
