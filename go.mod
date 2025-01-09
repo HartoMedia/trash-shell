@@ -1,3 +1,3 @@
-module github.com/harto.dev/shell-starter-go
+module harto.dev/trash
 
 go 1.22
