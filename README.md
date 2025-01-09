@@ -44,7 +44,7 @@ go run main.go
 
 To build the shell program, execute:
 ```sh
-go build -o shell
+go build -o shell.exe
 ```
 
 This will create an executable file named `shell` in the project directory.
@@ -53,7 +53,7 @@ This will create an executable file named `shell` in the project directory.
 
 To run the executable on Unix or Unix-like systems:
 ```sh
-./shell
+./shell.exe
 ```
 
 To run the executable on Windows:

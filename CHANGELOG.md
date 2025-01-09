@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- Builtins : `dirs`, `help`, `sleep`.
+
+### Changed
+- Formated hole project to be more readable and understandable.
+
+### Fixed
+- N/A
+
 ## [0.1.0] - 2025-01-09
 
 ### Added

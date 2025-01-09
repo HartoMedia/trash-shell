@@ -6,16 +6,15 @@ import (
 	"strings"
 )
 
-var builtins = []string{"exit", "echo", "type", "pwd", "cd", "thx", "cls"}
-
 func Type(commands []string) {
 	if len(commands) == 0 {
 		fmt.Println("type: missing argument")
 		return
 	}
+	builtins := GetBuiltins()
 	for _, b := range builtins {
 		if b == commands[0] {
-			fmt.Println(commands[0] + " is a shell builtin")
+			fmt.Println(commands[0] + " is a shell.exe builtin")
 			return
 		}
 	}

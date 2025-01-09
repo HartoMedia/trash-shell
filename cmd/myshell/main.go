@@ -28,7 +28,10 @@ func main() {
 			continue
 		}
 
+		// Parse command and arguments from user input
+		command, args := parseCommand(userInput)
+
 		// Handle da shit
-		handleCommands(userInput)
+		handleCommands(command, args)
 	}
 }

@@ -7,30 +7,15 @@ import (
 	"os/exec"
 )
 
-func handleCommands(input string) {
-	// Parse command and arguments
-	command, args := parseCommand(input)
+func handleCommands(command string, args []string) {
 
-	switch command {
-	case "exit":
-		builtin.Exit(args)
-	case "echo":
-		builtin.Echo(args)
-	case "type":
-		builtin.Type(args)
-	case "cls":
-		builtin.Cls()
-	case "pwd":
-		builtin.Pwd()
-	case "cd":
-		builtin.Cd(args)
-	case "thx":
-		builtin.Thx()
-	default:
+	// Parse command and arguments
+	isBuiltin := builtin.HandleBuiltins(command, args)
+	if !isBuiltin {
 		_, err := exec.LookPath(command)
 		if err != nil {
 			fmt.Printf("%s: command not found\n", command)
-			break
+			return
 		}
 		cmd := exec.Command(command, args...)
 		cmd.Stdin = os.Stdin
