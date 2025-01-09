@@ -1,35 +1,87 @@
-[![progress-banner](https://backend.codecrafters.io/progress/shell/e7282332-028e-4a1b-820b-dd76795ad860)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+# Shell Starter in Go
 
-This is a starting point for Go solutions to the
-["Build Your Own Shell" Challenge](https://app.codecrafters.io/courses/shell/overview).
+This project is a shell starter written in Go. It is designed to help you build a simple shell from scratch.
 
-In this challenge, you'll build your own POSIX compliant shell that's capable of
-interpreting shell commands, running external programs and builtin commands like
-cd, pwd, echo and more. Along the way, you'll learn about shell command parsing,
-REPLs, builtin commands, and more.
+## Project Structure
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+- `.gitattributes`: Configures Git to handle line endings automatically.
+- `.gitignore`: Specifies files and directories that should be ignored by Git.
+- `go.mod`: Defines the module path and Go version for the project.
 
-# Passing the first stage
+## Getting Started
 
-The entry point for your `shell` implementation is in `cmd/myshell/main.go`.
-Study and uncomment the relevant code, and push your changes to pass the first
-stage:
+### Prerequisites
 
+- Go 1.22 or later
+
+### Installation
+1. Install Go:
+   - Arch Linux: `sudo pacman -S go`
+   - Ubuntu: `sudo apt install golang-go`
+   - Fedora: `sudo dnf install golang`
+   - MacOS: `brew install go`
+   - Windows: `scoop install go`
+   - Windows (manual): Download the binary from the [official website](https://golang.org/dl/).
+2. Clone the repository:
+
+3. Install dependencies:
+    ```sh
+    go mod tidy
+    ```
+
+### Running the Program
+
+To run the shell program, execute:
 ```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
+go run main.go
 ```
 
-Time to move on to the next stage!
+### Building the Program
 
-# Stage 2 & beyond
+To build the shell program, execute:
+```sh
+go build -o shell
+```
 
-Note: This section is for stages 2 and beyond.
+This will create an executable file named `shell` in the project directory.
 
-1. Ensure you have `go (1.19)` installed locally
-1. Run `./your_program.sh` to run your program, which is implemented in
-   `cmd/myshell/main.go`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+### Running the Executable
+
+To run the executable on Unix or Unix-like systems:
+```sh
+./shell
+```
+
+To run the executable on Windows:
+```sh
+.\shell.exe
+```
+
+### Cleaning Up
+
+To clean up the project directory, execute:
+```sh
+go clean
+```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Builtins
+
+- `cd`: Change the current directory.
+- `exit`: Exit the shell.
+- `pwd`: Print the current working directory.
+- `echo`: Display a line of text.
+- `type`: Display information about command type.
+- `thx`: Displays the Credits.
+- runs every other command found in the "PATH" environment variable.
+
+## Authors
+
+Developer & Maintainer:
+- [Harto](https://blog.harto.dev)
+
+Designer:
+- [LordBuilder](https://www.curseforge.com/members/lordbuilder/projects)
