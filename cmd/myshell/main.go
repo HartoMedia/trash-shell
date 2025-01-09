@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-var builtins = []string{"exit", "echo", "type", "pwd", "cd", "thx"}
+var builtins = []string{"exit", "echo", "type", "pwd", "cd", "thx", "cls"}
 
 var blau = "\x1b[38;2;18;184;217m"
 var magenta = "\x1b[38;2;187;44;135m"
@@ -56,6 +56,9 @@ func main() {
 
 		case "type":
 			builtinType(args)
+
+		case "cls":
+			cls()
 
 		case "pwd":
 			dir, err := os.Getwd()
@@ -108,6 +111,10 @@ func main() {
 			}
 		}
 	}
+}
+
+func cls() {
+	fmt.Print("\033[H\033[2J")
 }
 
 func parseCommand(input string) (string, []string) {
