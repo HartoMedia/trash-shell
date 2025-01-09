@@ -1,12 +1,16 @@
-# Shell Starter in Go
+# TRASH
 
-This project is a shell starter written in Go. It is designed to help you build a simple shell from scratch.
+
+The *Totally Random and Aimless Shell* or for short ***TRASH*** is a simple shell written in Go. It is a minimalistic implementation of a Unix shell that supports basic shell commands and has some builtins.
 
 ## Project Structure
 
-- `.gitattributes`: Configures Git to handle line endings automatically.
-- `.gitignore`: Specifies files and directories that should be ignored by Git.
-- `go.mod`: Defines the module path and Go version for the project.
+The project is structured as follows:
+- `main.go`: Right now every thing is in this file. This follows that it is a bit unreadable. I will fix that (maybe) in the future.
+
+
+## Changelog
+Check the [CHANGELOG](CHANGELOG.md) for the latest changes.
 
 ## Getting Started
 
