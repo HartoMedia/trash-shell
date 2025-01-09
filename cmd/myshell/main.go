@@ -6,16 +6,22 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"os/user"
 	"regexp"
 	"strconv"
 	"strings"
 )
 
-var builtins = []string{"exit", "echo", "type", "pwd", "cd"}
+var builtins = []string{"exit", "echo", "type", "pwd", "cd", "thx"}
+
+var blau = "\x1b[38;2;18;184;217m"
+var magenta = "\x1b[38;2;187;44;135m"
+var gitColor = "\x1b[38;2;240;80;51m"
+var defaultColor = "\x1b[0m"
 
 func main() {
 	for {
-		fmt.Fprint(os.Stdout, "$ ")
+		fmt.Fprintf(os.Stdout, "%s%s %s %s %s%s%sΣ ", magenta, getUserName(), blau, getWorkDir(), gitColor, getGitBranch(), defaultColor)
 
 		// Wait for user input
 		s, err := bufio.NewReader(os.Stdin).ReadString('\n')
@@ -71,6 +77,21 @@ func main() {
 			} else if err != nil {
 				fmt.Println(err)
 			}
+
+		case "thx":
+			fmt.Println("+--------------------------------------------------------------+\n" +
+				"|                             THANK YOU                        |\n" +
+				"+--------------------------------------------------------------+\n" +
+				"| A big shoutout to *LordBuilder* for crafting the epic logo!  |\n" +
+				"|                                                              |\n" +
+				"|   Code for this shell was passionately written by *Harto*!   |\n" +
+				"|                                                              |\n" +
+				"| Thank you for using this shell. We hope you enjoy it as      |\n" +
+				"| much as we enjoyed creating it.                              |\n" +
+				"|                                                              |\n" +
+				"| May your commands be swift, your scripts elegant, and your   |\n" +
+				"| errors... minimal!                                           |\n" +
+				"+--------------------------------------------------------------+\n")
 
 		default:
 			_, err = exec.LookPath(command)
@@ -139,4 +160,44 @@ func builtinType(commands []string) {
 		}
 	}
 	fmt.Println(commands[0] + ": not found")
+}
+
+func getWorkDir() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+	}
+	home := os.Getenv("HOME")
+	if strings.HasPrefix(dir, home) {
+		dir = "~" + strings.TrimPrefix(dir, home)
+	}
+	return fmt.Sprintf(strings.ReplaceAll(dir, "\\", "/"))
+}
+
+func getUserName() string {
+	u, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	hostname, err := os.Hostname()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return fmt.Sprintf("%s@%s", strings.SplitN(u.Username, "\\", 2)[1], hostname)
+}
+
+func getGitBranch() string {
+	cmd := exec.Command("git", "branch", "--show-current")
+	err := error(nil)
+	cmd.Dir, err = os.Getwd()
+	if err != nil {
+		return ""
+	}
+	out, err := cmd.Output()
+	if err != nil || len(out) == 0 {
+		return ""
+	}
+	branch := strings.TrimSpace(string(out))
+	return fmt.Sprintf("(%s) ", branch)
 }
