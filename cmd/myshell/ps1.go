@@ -17,7 +17,7 @@ var gitColor = "\x1b[38;2;240;80;51m"
 var defaultColor = "\x1b[0m"
 
 func ps1() {
-	_, err := fmt.Fprintf(os.Stdout, "%s%s %s %s %s%s%sΣ ", magenta, getUserName(), blue, getWorkDir(), gitColor, getGitBranch(), defaultColor)
+	_, err := fmt.Fprintf(os.Stdout, "\n%s%s %s %s %s%s%sΣ ", magenta, getUserName(), blue, getWorkDir(), gitColor, getGitBranch(), defaultColor)
 	if err != nil {
 		return
 	}

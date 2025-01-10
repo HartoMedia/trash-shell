@@ -32,6 +32,6 @@ func main() {
 		command, args := parseCommand(userInput)
 
 		// Handle da shit
-		handleCommands(command, args)
+		HandleCommands(command, args)
 	}
 }

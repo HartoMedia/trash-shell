@@ -1,6 +1,6 @@
 package builtin
 
-var builtins = []string{"exit", "echo", "type", "cls", "pwd", "cd", "thx", "dirs", "help", "sleep"}
+var builtins = []string{"exit", "echo", "type", "cls", "pwd", "cd", "thx", "dirs", "help", "sleep", "mkdir", "ls", "rm", "mv"}
 
 func GetBuiltins() []string {
 	return builtins
@@ -29,6 +29,15 @@ func HandleBuiltins(command string, args []string) bool {
 		Help(args)
 	case "sleep":
 		Sleep(args)
+	case "mkdir":
+		Mkdir(args)
+	case "ls":
+		Ls(args)
+	case "rm":
+		Rm(args)
+	case "mv":
+		Mv(args)
+
 	default:
 		is_builtin = false
 	}

@@ -14,7 +14,7 @@ func Type(commands []string) {
 	builtins := GetBuiltins()
 	for _, b := range builtins {
 		if b == commands[0] {
-			fmt.Println(commands[0] + " is a shell.exe builtin")
+			fmt.Println(commands[0] + " is a TRASh builtin")
 			return
 		}
 	}

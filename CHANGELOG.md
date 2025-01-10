@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - Builtins : `dirs`, `help`, `sleep`.
+- Builtins : `ls`, `mkdir`, `mv`
+- Builtins : `rm` fully added with two flags `-r` and `-f`.
 
 ### Changed
 - Formated hole project to be more readable and understandable.

@@ -7,7 +7,7 @@ import (
 	"os/exec"
 )
 
-func handleCommands(command string, args []string) {
+func HandleCommands(command string, args []string) {
 
 	// Parse command and arguments
 	isBuiltin := builtin.HandleBuiltins(command, args)

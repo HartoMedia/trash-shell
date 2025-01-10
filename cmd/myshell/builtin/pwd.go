@@ -10,5 +10,5 @@ func Pwd() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(dir + "This is the Pwd function.")
+	fmt.Println(dir)
 }
