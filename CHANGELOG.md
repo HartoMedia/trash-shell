@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - Builtins : `dirs`, `help`, `sleep`.
-- Builtins : `ls`, `mkdir`, `mv`, `time`
+- Builtins : `ls`, `mkdir`, `mv`, `time`, `touch`
 - Builtins : `rm` fully added with two flags `-r` and `-f`.
 
 ### Changed
