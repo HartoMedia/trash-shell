@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"harto.dev/trash/cmd/myshell/builtin"
 	"os"
 	"strings"
 )
@@ -32,6 +33,6 @@ func main() {
 		command, args := parseCommand(userInput)
 
 		// Handle da shit
-		HandleCommands(command, args)
+		builtin.HandleCommands(command, args)
 	}
 }

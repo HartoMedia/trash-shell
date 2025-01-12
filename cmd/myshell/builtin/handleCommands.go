@@ -1,8 +1,7 @@
-package main
+package builtin
 
 import (
 	"fmt"
-	"harto.dev/trash/cmd/myshell/builtin"
 	"os"
 	"os/exec"
 )
@@ -10,7 +9,7 @@ import (
 func HandleCommands(command string, args []string) {
 
 	// Parse command and arguments
-	isBuiltin := builtin.HandleBuiltins(command, args)
+	isBuiltin := HandleBuiltins(command, args)
 	if !isBuiltin {
 		_, err := exec.LookPath(command)
 		if err != nil {

@@ -1,6 +1,6 @@
 package builtin
 
-var builtins = []string{"exit", "echo", "type", "cls", "pwd", "cd", "thx", "dirs", "help", "sleep", "mkdir", "ls", "rm", "mv"}
+var builtins = []string{"exit", "echo", "type", "cls", "pwd", "cd", "thx", "dirs", "help", "sleep", "mkdir", "ls", "rm", "mv", "time"}
 
 func GetBuiltins() []string {
 	return builtins
@@ -37,6 +37,9 @@ func HandleBuiltins(command string, args []string) bool {
 		Rm(args)
 	case "mv":
 		Mv(args)
+	case "time":
+		//fmt.Print("time: not implemented yet")
+		Time(args)
 
 	default:
 		is_builtin = false
