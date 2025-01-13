@@ -13,7 +13,7 @@ func Ls(args []string) {
 
 	files, err := os.ReadDir(dir)
 	if err != nil {
-		fmt.Print("ls: error reading directory")
+		fmt.Println("ls: error reading directory")
 	}
 	for _, file := range files {
 		fmt.Println(file.Name())

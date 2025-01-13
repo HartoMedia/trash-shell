@@ -3,3 +3,4 @@
 target
 *.exe
 shell
+cmd/myshell/builtin/builtins.md

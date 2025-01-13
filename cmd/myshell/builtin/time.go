@@ -13,5 +13,5 @@ func Time(args []string) {
 	start := time.Now()
 	HandleCommands(args[0], args[1:])
 	elapsed := time.Since(start)
-	fmt.Print(yellow, "Elapsed time: ", elapsed, defaultColor)
+	fmt.Println(yellow + "Elapsed time: " + elapsed.String() + defaultColor)
 }
