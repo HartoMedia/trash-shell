@@ -41,10 +41,7 @@ func getUserName() string {
 		log.Fatal(err)
 	}
 
-	hostname, err := os.Hostname()
-	if err != nil {
-		log.Fatal(err)
-	}
+	hostname := os.Getenv("HOSTNAME")
 	return fmt.Sprintf("%s@%s", strings.SplitN(u.Username, "\\", 2)[1], hostname)
 }
 
