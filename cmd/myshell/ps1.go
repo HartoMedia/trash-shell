@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
-	"os/user"
 	"strings"
 )
 
@@ -36,13 +34,10 @@ func getWorkDir() string {
 }
 
 func getUserName() string {
-	u, err := user.Current()
-	if err != nil {
-		log.Fatal(err)
-	}
+	username := os.Getenv("USER")
 
 	hostname := os.Getenv("HOSTNAME")
-	return fmt.Sprintf("%s@%s", strings.SplitN(u.Username, "\\", 2)[1], hostname)
+	return fmt.Sprintf("%s@%s", strings.SplitN(username, "\\", 2)[1], hostname)
 }
 
 func getGitBranch() string {
