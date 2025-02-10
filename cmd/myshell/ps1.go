@@ -36,7 +36,7 @@ func getWorkDir() string {
 func getUserName() string {
 	username := os.Getenv("USER")
 
-	hostname := os.Getenv("HOSTNAME")
+	hostname := os.Getenv("HOST")
 
 	return fmt.Sprintf("%s@%s", username, hostname)
 }
