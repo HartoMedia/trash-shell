@@ -37,7 +37,8 @@ func getUserName() string {
 	username := os.Getenv("USER")
 
 	hostname := os.Getenv("HOSTNAME")
-	return fmt.Sprintf("%s@%s", strings.SplitN(username, "\\", 2), hostname)
+
+	return fmt.Sprintf("%s@%s", username, hostname)
 }
 
 func getGitBranch() string {
