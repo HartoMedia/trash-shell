@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func parseCommand(input string) (string, []string) {
+func ParseCommand(input string) (string, []string) {
 	// Handle quoted strings and escaped characters
 	re := regexp.MustCompile(`\\.|"(.*?)"|'(.*?)'|\S+`)
 	matches := re.FindAllString(input, -1)

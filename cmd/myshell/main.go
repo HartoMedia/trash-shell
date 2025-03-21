@@ -10,7 +10,7 @@ import (
 
 func main() {
 	for {
-		ps1()
+		Ps1()
 		// Wait for user input
 		userInput, err := bufio.NewReader(os.Stdin).ReadString('\n')
 		if err != nil {
@@ -30,7 +30,7 @@ func main() {
 		}
 
 		// Parse command and arguments from user input
-		command, args := parseCommand(userInput)
+		command, args := ParseCommand(userInput)
 
 		// Handle da shit
 		builtin.HandleCommands(command, args)
