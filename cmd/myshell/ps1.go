@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"os/user"
 	"strings"
 )
 
@@ -26,7 +27,10 @@ func getWorkDir() string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	home := os.Getenv("HOME")
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println(err)
+	}
 	if strings.HasPrefix(dir, home) {
 		dir = "~" + strings.TrimPrefix(dir, home)
 	}
@@ -34,9 +38,25 @@ func getWorkDir() string {
 }
 
 func getUserName() string {
-	username := os.Getenv("USER")
+	//username := os.Getenv("USER")
+	//hostname := os.Getenv("HOST")
 
-	hostname := os.Getenv("HOST")
+	currentUser, err := user.Current()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	username := currentUser.Username
+
+	hostname, err := os.Hostname()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// If on Windows, remove domain if present
+	if idx := strings.LastIndex(username, `\`); idx != -1 {
+		username = username[idx+1:]
+	}
 
 	return fmt.Sprintf("%s@%s", username, hostname)
 }
