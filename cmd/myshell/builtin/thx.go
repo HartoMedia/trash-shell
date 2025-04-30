@@ -10,10 +10,10 @@ func Thx() {
 		"|                                                              |\n" +
 		"|   Code for this shell was passionately written by *Harto*!   |\n" +
 		"|                                                              |\n" +
-		"| Thank you for using this shell. We hope you enjoy it as      |\n" +
-		"| much as we enjoyed creating it.                              |\n" +
+		"| Thank you for using this fabulous shell. I hope you enjoy    |\n" +
+		"| it as much as I enjoyed creating it.                         |\n" +
 		"|                                                              |\n" +
 		"| May your commands be swift, your scripts elegant, and your   |\n" +
-		"| errors... minimal!                                           |\n" +
+		"| errors... well... minimal!                                   |\n" +
 		"+--------------------------------------------------------------+")
 }
