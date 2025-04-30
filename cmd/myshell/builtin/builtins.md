@@ -9,6 +9,8 @@
   Example: `help` or `help <builtin>`.
 - [x] **echo**: Prints text to the terminal.  
   Example: `echo "Hello, World!"`.
+- [x] **clear**: Clears the hole stdOut.  
+  Example: `clear`.
 
 # Process Management
 - [ ] **jobs**: Lists background jobs.  
